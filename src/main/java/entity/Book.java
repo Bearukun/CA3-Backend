@@ -22,10 +22,13 @@ public class Book implements Serializable {
     }
 
     public Book(String title, String info, String moreInfo) {
+        
         this.title = title;
         this.info = info;
         this.moreInfo = moreInfo;
     }
+
+    
 
   
 

@@ -40,5 +40,12 @@ public class All {
   public String getText() {
     return " {\"message\" : \"result for all\"}";
   }
+  
+  @GET
+  @Path("all")
+  @Produces(MediaType.APPLICATION_JSON)
+  public String getAllBooks() {
+    return "[{\"name\":\"Eleven Scout Bastards\", \"url\":\"http://www.liverpoolfc.com\"},{\"name\":\"Manchester United\",\"url\" : \"http://www.manutd.com/\"}]"; 
+  }
 
 }
