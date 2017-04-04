@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 
 public class BookFacade implements BookFacadeInterface{
@@ -35,7 +36,16 @@ public class BookFacade implements BookFacadeInterface{
 
     @Override
     public List<Book> readBooks() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        em = emf.createEntityManager();
+        
+        Query q1 = em.createQuery("select b from Book b", Book.class);
+        
+        
+        
+        
+        return q1.getResultList();
+        
     }
 
     @Override

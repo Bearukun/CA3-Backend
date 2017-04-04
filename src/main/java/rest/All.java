@@ -5,6 +5,11 @@
  */
 package rest;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import entity.Book;
+import facades.BookFacade;
+import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
@@ -22,6 +27,9 @@ import javax.ws.rs.core.MediaType;
 @Path("demoall")
 public class All {
 
+  BookFacade bf;
+  Gson gson = new GsonBuilder().setPrettyPrinting().create();  
+  
   @Context
   private UriInfo context;
 
@@ -29,6 +37,7 @@ public class All {
    * Creates a new instance of A
    */
   public All() {
+         bf = new BookFacade();
   }
 
   /**
@@ -45,7 +54,16 @@ public class All {
   @Path("all")
   @Produces(MediaType.APPLICATION_JSON)
   public String getAllBooks() {
-    return "[{\"name\":\"Eleven Scout Bastards\", \"url\":\"http://www.liverpoolfc.com\"},{\"name\":\"Manchester United\",\"url\" : \"http://www.manutd.com/\"}]"; 
+      
+      //Get all books from database
+     
+      List<Book> b1 = bf.readBooks();
+      
+      //Convert list of books to json
+      //Will return json data
+      return gson.toJson(b1);
+      
+      
   }
 
 }
