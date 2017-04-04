@@ -21,7 +21,7 @@ public class User {
   @Path("footballclubs")
   @Produces(MediaType.APPLICATION_JSON)
   public String getClubs(){
-    return "[{\"name\":\"Liverpool\", \"url\":\"http://www.liverpoolfc.com\"},{\"name\":\"Manchester United\",\"url\" : \"http://www.manutd.com/\"}]"; 
+    return "[{\"name\":\"Ten Scout Bastards\", \"url\":\"http://www.liverpoolfc.com\"},{\"name\":\"Manchester United\",\"url\" : \"http://www.manutd.com/\"}]"; 
   }
  
 }
