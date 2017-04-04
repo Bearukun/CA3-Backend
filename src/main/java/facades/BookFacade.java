@@ -55,7 +55,14 @@ public class BookFacade implements BookFacadeInterface{
 
     @Override
     public Book deleteBook(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        em = emf.createEntityManager();
+        Book bookToBeDeleted = em.find(Book.class,id);//find book with parameter id
+        //id = 1;
+        boolean dataDeletedOK = deleteData(bookToBeDeleted, em);
+        if(dataDeletedOK){
+            return bookToBeDeleted;
+        }
+        return null;
     }
     
     private boolean persistData(Object o, EntityManager em){
@@ -73,5 +80,19 @@ public class BookFacade implements BookFacadeInterface{
         return true;
     }
     
+    private boolean deleteData(Object o, EntityManager em){
+        try{
+            em.getTransaction().begin();
+            em.remove(o);
+            em.getTransaction().commit();
+        }
+        catch(Exception e){
+            return false;
+        }
+        finally{
+            em.close();
+        }
+        return true;
+    }
     
 }
