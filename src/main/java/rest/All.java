@@ -94,4 +94,20 @@ public class All {
         //return book in json format
         return gson.toJson(addedBook);
     }
+    
+    
+      /**
+   * ONLY FOR TESTING THE ADMIN FACADE! 
+   * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   */
+  @GET
+  @Path("hejsa")
+  @Produces(MediaType.APPLICATION_JSON)
+  public String getUsers(){
+      
+      return gson.toJson(ad.readUsers());
+      
+  }
+    
+    
 }
