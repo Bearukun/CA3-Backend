@@ -1,4 +1,3 @@
-
 package facades;
 
 import entity.Book;
@@ -112,6 +111,7 @@ public class BookFacade implements BookFacadeInterface{
         return true;
     }
     
+
      private boolean mergeData(Object o, EntityManager em){
         try{
             em.getTransaction().begin();
@@ -128,3 +128,6 @@ public class BookFacade implements BookFacadeInterface{
     }
     
 }
+
+
+

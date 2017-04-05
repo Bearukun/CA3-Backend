@@ -1,14 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import entity.Book;
+import facades.AdminFacade;
 import facades.BookFacade;
+import interfaces.AdminFacadeInterface;
 import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -31,6 +28,7 @@ import javax.ws.rs.core.MediaType;
 public class All {
 
   BookFacade bf;
+  AdminFacadeInterface ad;
   Gson gson = new GsonBuilder().setPrettyPrinting().create();  
   
   @Context
@@ -41,7 +39,8 @@ public class All {
    */
   public All() {
          bf = new BookFacade();
-  }
+         ad = new AdminFacade();
+    }
 
   /**
    * Retrieves representation of an instance of rest.All
@@ -95,6 +94,21 @@ public class All {
         //return book in json format
         return gson.toJson(addedBook);
     }
+    
+    
+      /**
+   * ONLY FOR TESTING THE ADMIN FACADE! 
+   * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   */
+  @GET
+  @Path("hejsa")
+  @Produces(MediaType.APPLICATION_JSON)
+  public String getUsers(){
+      
+      return gson.toJson(ad.readUsers());
+      
+  }
+    
     
     @POST
     @Path("edit")
