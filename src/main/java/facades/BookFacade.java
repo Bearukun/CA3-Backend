@@ -31,6 +31,25 @@ public class BookFacade implements BookFacadeInterface{
         }
         return null;
     }
+    
+    @Override
+    public Book updateBook(Book book) {
+        em = emf.createEntityManager();
+        
+        System.out.println(book.getId() + "Hallllllo!!!!");
+        
+        
+        
+        boolean dataEditedOK = mergeData(book, em);//add book and save+check boolean for status
+        
+         em = emf.createEntityManager();
+        
+        Book editedBook = em.find(Book.class,book.getId());//find book with parameter id
+        if(editedBook!=null){
+            return editedBook;
+        }
+        return null;
+    }
 
     @Override
     public Book readBook(int id) {
@@ -51,11 +70,7 @@ public class BookFacade implements BookFacadeInterface{
         
     }
 
-    @Override
-    public Book updateBook(Book book) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+  
     @Override
     public Book deleteBook(int id) {
         em = emf.createEntityManager();
@@ -86,6 +101,21 @@ public class BookFacade implements BookFacadeInterface{
         try{
             em.getTransaction().begin();
             em.remove(o);
+            em.getTransaction().commit();
+        }
+        catch(Exception e){
+            return false;
+        }
+        finally{
+            em.close();
+        }
+        return true;
+    }
+    
+     private boolean mergeData(Object o, EntityManager em){
+        try{
+            em.getTransaction().begin();
+            em.merge(o);
             em.getTransaction().commit();
         }
         catch(Exception e){
