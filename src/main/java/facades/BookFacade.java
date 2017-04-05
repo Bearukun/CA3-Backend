@@ -23,10 +23,13 @@ public class BookFacade implements BookFacadeInterface{
     
     @Override
     public Book createBook(Book book) {
-     //Book b1= new Book("Title 2", "Info for book title2", "way moreInfo for book title 2");
         em = emf.createEntityManager();
-        persistData(book, em);
-        return book;
+        boolean dataAddedOK = persistData(book, em);//add book and save+check boolean for status
+        Book addedBook = em.find(Book.class,book.getId());//find book with parameter id
+        if(addedBook!=null){
+            return addedBook;
+        }
+        return null;
     }
 
     @Override
