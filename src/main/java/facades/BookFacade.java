@@ -8,21 +8,27 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-public class BookFacade implements BookFacadeInterface {
 
-    EntityManagerFactory emf;
-    EntityManager em;
+public class BookFacade implements BookFacadeInterface{
+
+      EntityManagerFactory emf;
+      EntityManager em;
 
     public BookFacade() {
         emf = Persistence.createEntityManagerFactory("pu_development");
     }
-
+      
+      
+    
     @Override
     public Book createBook(Book book) {
-        //Book b1= new Book("Title 2", "Info for book title2", "way moreInfo for book title 2");
         em = emf.createEntityManager();
-        persistData(book, em);
-        return book;
+        boolean dataAddedOK = persistData(book, em);//add book and save+check boolean for status
+        Book addedBook = em.find(Book.class,book.getId());//find book with parameter id
+        if(addedBook!=null){
+            return addedBook;
+        }
+        return null;
     }
 
     @Override
@@ -32,13 +38,16 @@ public class BookFacade implements BookFacadeInterface {
 
     @Override
     public List<Book> readBooks() {
-
+        
         em = emf.createEntityManager();
-
+        
         Query q1 = em.createQuery("select b from Book b", Book.class);
-
+        
+        
+        
+        
         return q1.getResultList();
-
+        
     }
 
     @Override
@@ -49,38 +58,42 @@ public class BookFacade implements BookFacadeInterface {
     @Override
     public Book deleteBook(int id) {
         em = emf.createEntityManager();
-        Book bookToBeDeleted = em.find(Book.class, id);//find book with parameter id
+        Book bookToBeDeleted = em.find(Book.class,id);//find book with parameter id
         boolean dataDeletedOK = deleteData(bookToBeDeleted, em);//delete book and save+check boolean for status
-        if (dataDeletedOK) {
+        if(dataDeletedOK){
             return bookToBeDeleted;
         }
         return null;
     }
-
-    private boolean persistData(Object o, EntityManager em) {
-        try {
+    
+    private boolean persistData(Object o, EntityManager em){
+        try{
             em.getTransaction().begin();
             em.persist(o);
             em.getTransaction().commit();
-        } catch (Exception e) {
+        }
+        catch(Exception e){
             return false;
-        } finally {
+        }
+        finally{
             em.close();
         }
         return true;
     }
-
-    private boolean deleteData(Object o, EntityManager em) {
-        try {
+    
+    private boolean deleteData(Object o, EntityManager em){
+        try{
             em.getTransaction().begin();
             em.remove(o);
             em.getTransaction().commit();
-        } catch (Exception e) {
+        }
+        catch(Exception e){
             return false;
-        } finally {
+        }
+        finally{
             em.close();
         }
         return true;
     }
-
+    
 }
