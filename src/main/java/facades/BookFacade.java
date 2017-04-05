@@ -34,15 +34,7 @@ public class BookFacade implements BookFacadeInterface{
     @Override
     public Book updateBook(Book book) {
         em = emf.createEntityManager();
-        
-        System.out.println(book.getId() + "Hallllllo!!!!");
-        
-        
-        
         boolean dataEditedOK = mergeData(book, em);//add book and save+check boolean for status
-        
-         em = emf.createEntityManager();
-        
         Book editedBook = em.find(Book.class,book.getId());//find book with parameter id
         if(editedBook!=null){
             return editedBook;

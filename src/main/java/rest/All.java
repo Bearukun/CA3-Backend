@@ -117,7 +117,7 @@ public class All {
     public String editBook(String inputtedBook) {
         
         Book bookToEdit = gson.fromJson(inputtedBook, Book.class);
-        //add book to database
+        //edit book in database
         Book editedBook = bf.updateBook(bookToEdit);
         //return book in json format
         return gson.toJson(editedBook);
