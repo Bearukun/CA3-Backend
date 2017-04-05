@@ -95,4 +95,17 @@ public class All {
         //return book in json format
         return gson.toJson(addedBook);
     }
+    
+    @POST
+    @Path("edit")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String editBook(String inputtedBook) {
+        
+        Book bookToEdit = gson.fromJson(inputtedBook, Book.class);
+        //add book to database
+        Book editedBook = bf.updateBook(bookToEdit);
+        //return book in json format
+        return gson.toJson(editedBook);
+    }
 }
