@@ -3,11 +3,15 @@ package facades;
 import com.google.gson.JsonObject;
 import entity.User;
 import interfaces.AdminFacadeInterface;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import security.PasswordStorage;
 
 public class AdminFacade implements AdminFacadeInterface {
 
@@ -60,9 +64,28 @@ public class AdminFacade implements AdminFacadeInterface {
 
         em = emf.createEntityManager();
 
-        Query q1 = em.createQuery("select b from SEED_USER b", User.class);
-
+        Query q1 = em.createQuery("select u from SEED_USER u", User.class);
+        
+        for (User o : (List<User>) q1.getResultList()) {
+            System.out.println(o.getPassword());
+        }
+        
+        
         return q1.getResultList();
+        
+//            List<User> l = new ArrayList();
+//            User u;
+//        try {
+//            u = new User("fn","test");
+//        l.add(u);
+//        } catch (PasswordStorage.CannotPerformOperationException ex) {
+//            Logger.getLogger(AdminFacade.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return l;
+            
+        
+        
+            
 
     }
 
