@@ -57,8 +57,7 @@ public class BookFacade implements BookFacadeInterface{
     public Book deleteBook(int id) {
         em = emf.createEntityManager();
         Book bookToBeDeleted = em.find(Book.class,id);//find book with parameter id
-        //id = 1;
-        boolean dataDeletedOK = deleteData(bookToBeDeleted, em);
+        boolean dataDeletedOK = deleteData(bookToBeDeleted, em);//delete book and save+check boolean for status
         if(dataDeletedOK){
             return bookToBeDeleted;
         }
