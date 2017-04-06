@@ -15,7 +15,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 @Path("demoadmin")
-@RolesAllowed("Admin")
+//@RolesAllowed("Admin")
 public class Admin {
   
     AdminFacade ad;
@@ -26,35 +26,45 @@ public class Admin {
   }
   
   @GET
+  @Path("all")
+  @Produces(MediaType.APPLICATION_JSON)
+  public String getUsers(){
+      List<entity.User> users = ad.readUsers();
+      
+      return gson.toJson(new pojo.Users(users));
+  } 
+  
+  @GET
   @Produces(MediaType.APPLICATION_JSON)
   public String getSomething(){
     String now = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss").format(new Date());
     
     //Get all books from database
      
-      List<User> u1 = ad.readUsers();
       
       //Convert list of books to json
       //Will return json data
-      return gson.toJson(u1);
-    
-//    return "{\"message\" : \"Hello Admin from server (call accesible by only authenticated ADMINS)\",\n"+"\"serverTime\": \""+now +"\"}"; 
+      
+      
+//      List<User> u1 = ad.readUsers();
+//      return gson.toJson(u1);
+    return "{\"message\" : \"Hello Admin from server (call accesible by only authenticated ADMINS)\",\n"+"\"serverTime\": \""+now +"\"}"; 
   }
  
-  @GET
-  @Path("all")
-  @Produces(MediaType.APPLICATION_JSON)
-  public String getAllBooks() {
-      
-      //Get all books from database
-     
-      List<User> u1 = ad.readUsers();
-      
-      //Convert list of books to json
-      //Will return json data
-      return gson.toJson(u1);
-      
-      
-  }
+//  @GET
+//  @Path("all")
+//  @Produces(MediaType.APPLICATION_JSON)
+//  public String getAllBooks() {
+//      
+//      //Get all books from database
+//     
+//      List<User> u1 = ad.readUsers();
+//      
+//      //Convert list of books to json
+//      //Will return json data
+//      return gson.toJson(u1);
+//      
+//      
+//  }
   
 }

@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import security.PasswordStorage;
 
 public class AdminFacade implements AdminFacadeInterface {
@@ -64,15 +65,17 @@ public class AdminFacade implements AdminFacadeInterface {
 
         em = emf.createEntityManager();
 
-        Query q1 = em.createQuery("select u from SEED_USER u", User.class);
+//        Query q1 = em.createQuery("select u from SEED_USER u", User.class);
+//        
+//        for (User o : (List<User>) q1.getResultList()) {
+//            System.out.println(o.getPassword());
+//        }
         
-        for (User o : (List<User>) q1.getResultList()) {
-            System.out.println(o.getPassword());
-        }
-        
-        
+        TypedQuery<User> q1 = em.createQuery("SELECT u FROM SEED_USER u",User.class);
         return q1.getResultList();
         
+
+
 //            List<User> l = new ArrayList();
 //            User u;
 //        try {
