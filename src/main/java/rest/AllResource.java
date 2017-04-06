@@ -2,6 +2,7 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import entity.Book;
 import facades.AdminFacade;
 import facades.BookFacade;

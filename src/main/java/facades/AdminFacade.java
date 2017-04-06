@@ -76,16 +76,16 @@ public class AdminFacade implements AdminFacadeInterface {
 
     /**
      * Method used to delete a user from the database.
-     * @param id Id of the user that needs to be removed. 
+     * @param userName Id of the user that needs to be removed. 
      * @return Returns a json object that tells that the user has been removed.
      */
     @Override
-    public JsonObject deleteUser(int id) {
+    public JsonObject deleteUser(String userName) {
         em = emf.createEntityManager();
         User user = null;
         try {
             em.getTransaction().begin();
-            user = em.merge(em.find(User.class, id));
+            user = em.merge(em.find(User.class, userName));
             em.remove(user);
             em.getTransaction().commit();
         } catch (Exception e) {
@@ -94,7 +94,7 @@ public class AdminFacade implements AdminFacadeInterface {
             em.close();
         }
         JsonObject jo = new JsonObject();
-        jo.addProperty("message", "User: " + user.getUserName() + " with id: " + id + " has been removed.");
+        jo.addProperty("message", "User: " + user.getUserName() + " with user name: " + userName + " has been removed.");
         return jo;
     }
 }

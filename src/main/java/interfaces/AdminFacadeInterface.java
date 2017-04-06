@@ -16,6 +16,6 @@ public interface AdminFacadeInterface {
     public JsonObject updateUser(User user);
     
     //DELETE
-    public JsonObject deleteUser(int id);
+    public JsonObject deleteUser(String userName);
     
 }
