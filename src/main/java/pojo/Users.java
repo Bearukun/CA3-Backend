@@ -1,6 +1,5 @@
 package pojo;
 
-import entity.Role;
 import java.util.ArrayList;
 import java.util.List;
 

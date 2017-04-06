@@ -9,7 +9,7 @@ import security.IUser;
 import security.PasswordStorage;
 
 public class UserFacade implements IUserFacade {
-
+    
     EntityManagerFactory emf;
 
     public UserFacade(EntityManagerFactory emf) {
@@ -36,10 +36,7 @@ public class UserFacade implements IUserFacade {
     @Override
     public List<String> authenticateUser(String userName, String password) throws PasswordStorage.CannotPerformOperationException, PasswordStorage.InvalidHashException {
         IUser user = getUserByUserId(userName);
-
-        System.out.println(PasswordStorage.verifyPassword(password, user.getPassword()) + "Password match");
-
+//        System.out.println(PasswordStorage.verifyPassword(password, user.getPassword()) + "Password match");
         return user != null && PasswordStorage.verifyPassword(password, user.getPassword()) ? user.getRolesAsStrings() : null;
     }
-
 }

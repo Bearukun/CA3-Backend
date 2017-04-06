@@ -112,7 +112,6 @@ public class InitialSeedRestIntegrationTest {
             .get("/api/demoadmin").then()
             .statusCode(401)
             .body("error.message", equalTo("No authorization header provided"));
-
   }
 
 }

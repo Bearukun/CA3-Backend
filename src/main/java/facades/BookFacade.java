@@ -8,23 +8,21 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-
 public class BookFacade implements BookFacadeInterface{
-
-      EntityManagerFactory emf;
+      
+    EntityManagerFactory emf;
       EntityManager em;
 
     public BookFacade() {
         emf = Persistence.createEntityManagerFactory("pu_development");
     }
-      
-      
     
     @Override
-    public Book createBook(Book book) {
+    public Book createBook(entity.Book book) {
         em = emf.createEntityManager();
         boolean dataAddedOK = persistData(book, em);//add book and save+check boolean for status
-        Book addedBook = em.find(Book.class,book.getId());//find book with parameter id
+        em = emf.createEntityManager();
+        entity.Book addedBook = em.find(Book.class,book.getId());//find book with parameter id
         if(addedBook!=null){
             return addedBook;
         }
@@ -35,6 +33,7 @@ public class BookFacade implements BookFacadeInterface{
     public Book updateBook(Book book) {
         em = emf.createEntityManager();
         boolean dataEditedOK = mergeData(book, em);//add book and save+check boolean for status
+        em = emf.createEntityManager();
         Book editedBook = em.find(Book.class,book.getId());//find book with parameter id
         if(editedBook!=null){
             return editedBook;
@@ -49,23 +48,15 @@ public class BookFacade implements BookFacadeInterface{
 
     @Override
     public List<Book> readBooks() {
-        
         em = emf.createEntityManager();
-        
         Query q1 = em.createQuery("select b from Book b", Book.class);
-        
-        
-        
-        
         return q1.getResultList();
-        
     }
-
   
     @Override
     public Book deleteBook(int id) {
         em = emf.createEntityManager();
-        Book bookToBeDeleted = em.find(Book.class,id);//find book with parameter id
+        entity.Book bookToBeDeleted = em.find(Book.class,id);//find book with parameter id
         boolean dataDeletedOK = deleteData(bookToBeDeleted, em);//delete book and save+check boolean for status
         if(dataDeletedOK){
             return bookToBeDeleted;
@@ -118,8 +109,4 @@ public class BookFacade implements BookFacadeInterface{
         }
         return true;
     }
-    
 }
-
-
-

@@ -19,13 +19,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-/**
- * REST Web Service
- *
- * @author plaul1
- */
-@Path("demoall")
-public class All {
+@Path("all")
+public class AllResource {
 
   BookFacade bf;
   AdminFacadeInterface ad;
@@ -37,7 +32,7 @@ public class All {
   /**
    * Creates a new instance of A
    */
-  public All() {
+  public AllResource() {
          bf = new BookFacade();
          ad = new AdminFacade();
     }
@@ -51,24 +46,22 @@ public class All {
   public String getText() {
     return " {\"message\" : \"result for all\"}";
   }
+  
+  @GET
+  @Path("allbooks")
+  @Produces(MediaType.APPLICATION_JSON)
+  public String getAllBooks() {
+      List<entity.Book> b1 = bf.readBooks();//Get all books from database, via facade
+      return gson.toJson(b1);//Convert list of books to json and return
+  }
 //  
-//  @GET
-//  @Path("all")
+//  @DELETE
+//  @Path("delete/{id}")
 //  @Produces(MediaType.APPLICATION_JSON)
-//  public String getAllBooks() {
-//      
-//      //Get all books from database
-//     
-//      List<Book> b1 = bf.readBooks();
-//      
-//      //Convert list of books to json
-//      //Will return json data
-//      return gson.toJson(b1);
-//      
-//      
+//  public Book deleteBook(@PathParam("id") int id) {
+//      Book deletedBook = bf.deleteBook(id);
+//      return deletedBook;
 //  }
-//  
-//  
 //  
 ////  @POST
 ////  @Path("add/{book}")
@@ -78,7 +71,16 @@ public class All {
 ////      return deletedBook;
 ////  }
 //  
-
+//  @POST
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public String addBook(String inputtedBook) {
+//        Book bookToAdd = gson.fromJson(inputtedBook, Book.class);
+//        //add book to database
+//        Book addedBook = bf.createBook(bookToAdd);
+//        //return book in json format
+//        return gson.toJson(addedBook);
+//    }
 //    
 //    
 //      /**
@@ -95,5 +97,16 @@ public class All {
 //  }
 //    
 //    
-//    
+//    @POST
+//    @Path("edit")
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public String editBook(String inputtedBook) {
+//        
+//        Book bookToEdit = gson.fromJson(inputtedBook, Book.class);
+//        //edit book in database
+//        Book editedBook = bf.updateBook(bookToEdit);
+//        //return book in json format
+//        return gson.toJson(editedBook);
+//    }
 }

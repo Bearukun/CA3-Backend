@@ -15,5 +15,4 @@ public class User {
   public String getSomething(){
     return "{\"message\" : \"Hello User from Server (Accesible by only authenticated USERS)\"}"; 
   }
- 
 }
