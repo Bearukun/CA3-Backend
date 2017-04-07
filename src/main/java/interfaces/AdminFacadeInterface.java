@@ -1,6 +1,7 @@
 package interfaces;
 
 import com.google.gson.JsonObject;
+import entity.Role;
 import entity.User;
 import java.util.List;
 

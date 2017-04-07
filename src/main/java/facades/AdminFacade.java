@@ -1,6 +1,7 @@
 package facades;
 
 import com.google.gson.JsonObject;
+import entity.Role;
 import entity.User;
 import interfaces.AdminFacadeInterface;
 import java.util.List;
