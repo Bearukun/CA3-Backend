@@ -54,14 +54,18 @@ public class AdminResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public String addUser(String user) throws PasswordStorage.CannotPerformOperationException {
-        
         entity.User userToAdd = gson.fromJson(user, User.class);//save user from json to java format
         userToAdd.setPassword(PasswordStorage.createHash(userToAdd.getPassword()));//Hash password
-        
-        
         List<Role> roles = new ArrayList();
-        Role newRole = new Role("User");
+        Role newRole = new Role("Admin");
         roles.add(newRole);
+        userToAdd.setRoles(roles);
+        
+        User addedUser = ad.createUser(userToAdd);//add user to database
+        return gson.toJson(addedUser);//return user in json format
+        //System.out.println("gejl "+userToAdd.getRoles());
+//        pojo.User pojoUser = new pojo.User(userToAdd);
+        //System.out.println(pojoUser);
 //        userToAdd.setRoles(userToAdd.getRoles());
 //        System.out.println("hulabula: "+userToAdd.getRoles());
 //        for (Role role : userToAdd.getRoles()) {
@@ -75,13 +79,10 @@ public class AdminResource {
 //        user på rolle
 //        persist user
         
+//userToAdd.setRoles( roles);
 //        userToAdd.setRoles( userToAdd.getRoles());
-//            userToAdd.setRoles( roles);
-            userToAdd.setRoles( roles);
-
-        
-        entity.User addedUser = ad.createUser(userToAdd);//add user to database
-        return gson.toJson(addedUser);//return book in json format
-//        return gson.toJson(user);//return book in json format
+//        pojo.User addedUser = ad.createPojoUser(pojoUser);//add user to database
+//        return gson.toJson(addedUser);//return book in json format
+//        return null;//return book in json format
     }
 }

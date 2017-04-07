@@ -40,6 +40,28 @@ public class AdminFacade implements AdminFacadeInterface {
         }
         return user;
     }
+    
+    
+    
+    
+    
+    public pojo.User createPojoUser(pojo.User user) {
+        em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(user);
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            //If something goes wrong, rollback. 
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
+        return user;
+    }
+    
+    
+    
 
     /**
      * Method to retrieve all persons from the database.

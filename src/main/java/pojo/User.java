@@ -6,11 +6,14 @@ import java.util.List;
 
 public class User {
 
-    public String username;
+    public String userName;
+    public String passwordHash;
     public List<String> roles = new ArrayList();
     
     public User(entity.User u) {
-        this.username = u.getUserName();
+        
+        this.passwordHash = u.getPassword();
+        this.userName = u.getUserName();
         for (Role role : u.getRoles()) {
             this.roles.add(role.getRoleName());
         }
