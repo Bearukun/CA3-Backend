@@ -10,8 +10,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -35,6 +37,7 @@ public class AdminResource {
       List<entity.User> users = ad.readUsers();
       return gson.toJson(new pojo.Users(users));
   } 
+
   
   @GET
   @Produces(MediaType.APPLICATION_JSON)
@@ -51,5 +54,19 @@ public class AdminResource {
         JsonObject deletedUser =  ad.deleteUser(userName);
        
         return gson.toJson(deletedUser);
+    }
+    
+    @POST
+    @Path("add")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String addUser(String user) {
+        entity.User userToAdd = gson.fromJson(user, User.class);//save book from json to java format
+//        System.out.println("book to add title: "+bookToAdd.getTitle());
+//        System.out.println("book to add id: "+bookToAdd.getId());
+        entity.User addedUser = ad.createUser(userToAdd);//add book to database
+//        System.out.println("added book title: "+addedBook.getTitle());
+//        System.out.println("added book id: "+addedBook.getId());
+        return gson.toJson(addedUser);//return book in json format
     }
 }
